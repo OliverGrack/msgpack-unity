@@ -29,7 +29,12 @@ namespace MsgPack
 			FieldInfo[] fields = t.GetFields (FieldBindingFlags);
 			IDictionary<string, FieldInfo> map = new Dictionary<string, FieldInfo> (fields.Length);
 			for (int i = 0; i < fields.Length; i ++) {
-				FieldInfo f = fields[i];
+                FieldInfo f = fields[i];
+
+                if (f.GetCustomAttributes(typeof(NonSerializedAttribute), true).Length != 0) {
+                    continue;
+                }
+
 				string name = f.Name;
 				int pos;
 				if (name[0] == '<' && (pos = name.IndexOf ('>')) > 1)
