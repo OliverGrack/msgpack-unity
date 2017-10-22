@@ -52,8 +52,6 @@ namespace MsgPack
 
 		public void Pack (Stream strm, object o)
 		{
-			if (o != null && o.GetType ().IsPrimitive)
-				throw new NotSupportedException ();
 			MsgPackWriter writer = new MsgPackWriter (strm);
 			Pack (writer, o);
 		}
@@ -144,8 +142,6 @@ namespace MsgPack
 
 		public object Unpack (Type type, Stream strm)
 		{
-			if (type.IsPrimitive)
-				throw new NotSupportedException ();
 			MsgPackReader reader = new MsgPackReader (strm);
 			return Unpack (reader, type);
 		}
